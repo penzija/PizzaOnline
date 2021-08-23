@@ -11,13 +11,12 @@ import javax.persistence.Id;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Entity(name = "orders")
 public class Order {
     @Id
     @GeneratedValue
     private Long id;
     private String nameOfPerson;
-    private String address;
     private String pizzaName;
 }
 
