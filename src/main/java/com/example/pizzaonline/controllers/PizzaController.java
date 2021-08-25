@@ -5,6 +5,7 @@ import com.example.pizzaonline.entities.Pizza;
 import com.example.pizzaonline.mappers.PizzaMapper;
 import com.example.pizzaonline.repositories.PizzaRepository;
 import org.springframework.web.bind.annotation.*;
+import org.modelmapper.ModelMapper;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,9 +14,9 @@ import java.util.Optional;
 public class PizzaController {
 
     private final PizzaRepository pizzaRepository;
-    //private final ModelMapper mapper = new ModelMapper();
+    private final ModelMapper mapper = new ModelMapper();
 
-    public PizzaController(PizzaRepository pizzaRepository /*, ModelMapper mapper */) {
+    public PizzaController(PizzaRepository pizzaRepository) {
         this.pizzaRepository = pizzaRepository;
     }
 
@@ -40,13 +41,20 @@ public class PizzaController {
     }
 
     @DeleteMapping("/pizzas/{id}")
-    void deletePizza(@PathVariable("id") Long id){
-         pizzaRepository.deleteById(id);
+    void deletePizza(@PathVariable("id") Long id) {
     }
 
     @PutMapping("/Pizzas/{id}")
     PizzaDto updatePizza(@RequestBody PizzaDto pizza, Long id) {
         return PizzaMapper.entityToDto(pizzaRepository.save(PizzaMapper.dtoToEntity(pizza)));
     }
+
+    @PatchMapping("/pizzas/{id}")
+    PizzaDto updatePizzaNameField(@PathVariable("id") Long id, @RequestParam String name) {
+        // PizzaDto pizzaToChange = pizzaRepository.findById(id);
+        // return PizzaMapper.entityToDto(pizzaRepository.save(PizzaMapper.dtoToEntity(pizzaToChange)));
+        return null;
+    }
+
 
 }
