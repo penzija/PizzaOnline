@@ -30,7 +30,7 @@ public class PizzaController {
         return pizzaRepository.findById(id);
     }
 
-    @GetMapping("/findapizza/{name}")
+    @GetMapping("/findapizza/")
     Pizza findOnePizza(String name) {
         return pizzaRepository.findByName(name);
     }
@@ -42,9 +42,10 @@ public class PizzaController {
 
     @DeleteMapping("/pizzas/{id}")
     void deletePizza(@PathVariable("id") Long id) {
+        pizzaRepository.deleteById(id);
     }
 
-    @PutMapping("/Pizzas/{id}")
+    @PutMapping("/pizzas/{id}")
     PizzaDto updatePizza(@RequestBody PizzaDto pizza, Long id) {
         return PizzaMapper.entityToDto(pizzaRepository.save(PizzaMapper.dtoToEntity(pizza)));
     }
@@ -53,14 +54,6 @@ public class PizzaController {
     PizzaDto updatePizzaName(@RequestBody PizzaDto pizza, Long id, String name) {
 
         PizzaMapper.dtoToEntity(pizza).setName(name);
-
         return PizzaMapper.entityToDto(pizzaRepository.save(PizzaMapper.dtoToEntity(pizza)));
-
-
-
-
-
     }
-
-
 }

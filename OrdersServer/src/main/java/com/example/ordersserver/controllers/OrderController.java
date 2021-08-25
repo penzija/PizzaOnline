@@ -33,7 +33,6 @@ public class OrderController {
         return ResponseEntity.created(orderUri).build();
     }
 
-
     @GetMapping("/orders")
     public List<Order> findAllOrders() {
         return orderRepository.findAll();
