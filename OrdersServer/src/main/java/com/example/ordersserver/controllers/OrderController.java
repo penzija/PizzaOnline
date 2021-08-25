@@ -24,19 +24,13 @@ public class OrderController {
     public ResponseEntity updateOrderWithPizzaName
             (@RequestBody RequestWrapper requestWrapper) throws URISyntaxException {
 
-        String foundPizzaName = requestWrapper.getPizza().getName();
-        String foundNameOfPerson = requestWrapper.getOrder().getNameOfPerson();
-
         Order savedOrder = requestWrapper.getOrder();
         savedOrder.setPizzaName(requestWrapper.getPizza().getName());
         savedOrder = orderRepository.save(requestWrapper.getOrder());
 
         URI orderUri = new URI("/orders/" + savedOrder.getId());
 
-        System.out.println(orderUri.toString());
         return ResponseEntity.created(orderUri).build();
-
-
     }
 
 
