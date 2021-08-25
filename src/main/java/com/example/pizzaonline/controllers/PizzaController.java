@@ -49,11 +49,17 @@ public class PizzaController {
         return PizzaMapper.entityToDto(pizzaRepository.save(PizzaMapper.dtoToEntity(pizza)));
     }
 
-    @PatchMapping("/pizzas/{id}")
-    PizzaDto updatePizzaNameField(@PathVariable("id") Long id, @RequestParam String name) {
-        // PizzaDto pizzaToChange = pizzaRepository.findById(id);
-        // return PizzaMapper.entityToDto(pizzaRepository.save(PizzaMapper.dtoToEntity(pizzaToChange)));
-        return null;
+    @PatchMapping("/pizzas/{id}/{name}")
+    PizzaDto updatePizzaName(@RequestBody PizzaDto pizza, Long id, String name) {
+
+        PizzaMapper.dtoToEntity(pizza).setName(name);
+
+        return PizzaMapper.entityToDto(pizzaRepository.save(PizzaMapper.dtoToEntity(pizza)));
+
+
+
+
+
     }
 
 
