@@ -25,17 +25,28 @@ public class PizzaController {
     }
 
     @GetMapping("/pizzas/{id}")
-    public Optional<Pizza> findById(@PathVariable("id") Integer id) {
+    Optional<Pizza> findById(@PathVariable("id") Long id) {
         return pizzaRepository.findById(id);
     }
 
-    @GetMapping("/findapizza")
-    public Pizza findOnePizza(String name) {
+    @GetMapping("/findapizza/{name}")
+    Pizza findOnePizza(String name) {
         return pizzaRepository.findByName(name);
     }
 
     @PostMapping("/pizzas")
-    public PizzaDto savePizza(@RequestBody PizzaDto pizza) {
+    PizzaDto savePizza(@RequestBody PizzaDto pizza) {
         return PizzaMapper.entityToDto(pizzaRepository.save(PizzaMapper.dtoToEntity(pizza)));
     }
+
+    @DeleteMapping("/pizzas/{id}")
+    void deletePizza(@PathVariable("id") Long id){
+         pizzaRepository.deleteById(id);
+    }
+
+    @PutMapping("/Pizzas/{id}")
+    PizzaDto updatePizza(@RequestBody PizzaDto pizza, Long id) {
+        return PizzaMapper.entityToDto(pizzaRepository.save(PizzaMapper.dtoToEntity(pizza)));
+    }
+
 }
