@@ -4,8 +4,10 @@ import com.example.pizzaonline.dto.PizzaDto;
 import com.example.pizzaonline.entities.Pizza;
 import com.example.pizzaonline.mappers.PizzaMapper;
 import com.example.pizzaonline.repositories.PizzaRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.modelmapper.ModelMapper;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,8 +28,8 @@ public class PizzaController {
     }
 
     @GetMapping("/pizzas/{id}")
-    Optional<Pizza> findById(@PathVariable("id") Long id) {
-        return pizzaRepository.findById(id);
+    Pizza findById(@PathVariable("id") Long id) {
+        return pizzaRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/findapizza/")
